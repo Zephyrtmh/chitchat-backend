@@ -1,6 +1,9 @@
 package spring.app.chitchat.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,6 +18,14 @@ public class Conversation {
 
     @OneToMany(mappedBy = "conversation")
     private Set<Message> messages;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "conversations")
+    private Set<User> users = new HashSet<>();
+
+    public Conversation() {
+
+    }
 
     public Conversation(int conversationId, String conversationName, Set<Message> messages) {
         this.conversationId = conversationId;

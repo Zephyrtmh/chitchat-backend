@@ -2,6 +2,8 @@ package spring.app.chitchat.entities;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -16,15 +18,25 @@ public class User {
     private String email;
     @Column(name="PASSWORD")
     private String password;
-    @Column(name="GROUP_ID")
-    private int groupId;
 
-    public User(int userId, String username, String email, String password, int groupId) {
+    @ManyToMany
+    @JoinTable(
+            name="user_conversation",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="conversation_id")}
+    )
+    Set<Conversation> conversations = new HashSet<>();
+
+    public User() {
+
+    }
+
+    public User(int userId, String username, String email, String password, Set<Conversation> conversations) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.groupId = groupId;
+        this.conversations = conversations;
     }
 
     public int getUserId() {
@@ -59,11 +71,15 @@ public class User {
         this.password = password;
     }
 
-    public int getGroupId() {
-        return groupId;
+    public Set<Conversation> getConversations() {
+        return conversations;
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
+    public void setConversations(Set<Conversation> conversations) {
+        this.conversations = conversations;
+    }
+
+    public void addUserToConversation(Conversation conversation) {
+        this.conversations.add(conversation);
     }
 }

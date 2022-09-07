@@ -20,6 +20,10 @@ public class Message {
     @JoinColumn(name="CONVERSATION_ID", nullable=false)
     private Conversation conversation;
 
+    public Message() {
+
+    }
+
     public Message(int messageId, int fromUserId, LocalDateTime sentDateTime, String textContent, Conversation conversation) {
         this.messageId = messageId;
         this.fromUserId = fromUserId;
