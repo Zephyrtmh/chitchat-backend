@@ -42,6 +42,9 @@ public class UserController {
         User user = userRepository.findById(userId).get();
         Conversation conversation = conversationRepository.findById(conversationId).get();
         user.addUserToConversation(conversation);
+//        conversation.addUserToConversation(user);
+        userRepository.save(user);
+//        conversationRepository.save(conversation);
         return user;
     }
 }

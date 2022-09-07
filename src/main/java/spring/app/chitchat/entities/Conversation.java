@@ -56,4 +56,8 @@ public class Conversation {
     public void setMessages(Set<Message> messages) {
         this.messages = messages;
     }
+
+    public void addUserToConversation(User user) {
+        this.users.add(user);
+    }
 }
