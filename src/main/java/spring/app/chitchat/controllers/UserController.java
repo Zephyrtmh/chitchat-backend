@@ -43,6 +43,7 @@ public class UserController {
         Conversation conversation = conversationRepository.findById(conversationId).get();
         user.addUserToConversation(conversation);
 //        conversation.addUserToConversation(user);
+        //save to user table (also saves to the join table)
         userRepository.save(user);
 //        conversationRepository.save(conversation);
         return user;

@@ -19,18 +19,24 @@ public class Conversation {
     @OneToMany(mappedBy = "conversation")
     private Set<Message> messages;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "conversations")
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     public Conversation() {
 
     }
 
-    public Conversation(int conversationId, String conversationName, Set<Message> messages) {
+    public Conversation(int conversationId, String conversationName, Set<Message> messages, Set<User> users) {
         this.conversationId = conversationId;
         this.conversationName = conversationName;
         this.messages = messages;
+        this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Messages : " + this.getMessages()+", Users: " + this.getUsers();
     }
 
     public int getConversationId() {
@@ -55,6 +61,14 @@ public class Conversation {
 
     public void setMessages(Set<Message> messages) {
         this.messages = messages;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public void addUserToConversation(User user) {

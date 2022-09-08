@@ -1,5 +1,7 @@
 package spring.app.chitchat.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -16,8 +18,9 @@ public class Message {
     private LocalDateTime sentDateTime;
     @Column(name="TEXT_CONTENT")
     private String textContent;
-    @ManyToOne
-    @JoinColumn(name="CONVERSATION_ID", nullable=false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="CONVERSATION_ID", referencedColumnName = "CONVERSATION_ID")
+    @JsonIgnore
     private Conversation conversation;
 
     public Message() {
@@ -64,11 +67,11 @@ public class Message {
         this.textContent = textContent;
     }
 
-    public Conversation getGroup() {
+    public Conversation getConversation() {
         return conversation;
     }
 
-    public void setGroup(Conversation conversation) {
+    public void setConversation(Conversation conversation) {
         this.conversation = conversation;
     }
 }

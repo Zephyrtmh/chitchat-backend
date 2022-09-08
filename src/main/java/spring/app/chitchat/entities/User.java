@@ -22,8 +22,8 @@ public class User {
     @ManyToMany
     @JoinTable(
             name="user_conversation",
-            joinColumns = {@JoinColumn(name="user_id")},
-            inverseJoinColumns = {@JoinColumn(name="conversation_id")}
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="conversation_id")
     )
     Set<Conversation> conversations = new HashSet<>();
 

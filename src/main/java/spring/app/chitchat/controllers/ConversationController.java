@@ -51,6 +51,19 @@ public class ConversationController {
             return new ResponseEntity<>(conversation, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping(path="/get/usersInConversation/{conversationId}")
+    public ResponseEntity<List<Integer>> getUsersInConversation(@PathVariable(value="conversationId") int conversationId) {
+        try {
+            List<Integer> userIdsInConversation = conversationRepository.getUsersByConversationId(conversationId);
+            return new ResponseEntity<>(userIdsInConversation, HttpStatus.OK);
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+    }
 }
 
 
