@@ -17,7 +17,7 @@ public class Message {
     @Column(name="SENT_DATE_TIME")
     private LocalDateTime sentDateTime;
     @Column(name="TEXT_CONTENT")
-    private String textContent;
+    private String messageContent;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="CONVERSATION_ID", referencedColumnName = "CONVERSATION_ID")
     @JsonIgnore
@@ -31,7 +31,7 @@ public class Message {
         this.messageId = messageId;
         this.fromUserId = fromUserId;
         this.sentDateTime = sentDateTime;
-        this.textContent = textContent;
+        this.messageContent = textContent;
         this.conversation = conversation;
     }
 
@@ -59,12 +59,12 @@ public class Message {
         this.sentDateTime = sentDateTime;
     }
 
-    public String getTextContent() {
-        return textContent;
+    public String getMessageContent() {
+        return messageContent;
     }
 
-    public void setTextContent(String textContent) {
-        this.textContent = textContent;
+    public void setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
     }
 
     public Conversation getConversation() {

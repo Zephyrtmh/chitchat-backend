@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,7 @@ public class Conversation {
     private String conversationName;
 
     @OneToMany(mappedBy = "conversation")
-    private Set<Message> messages;
+    private List<Message> messages;
 
     @ManyToMany(mappedBy = "conversations")
     @JsonIgnore
@@ -27,7 +28,7 @@ public class Conversation {
 
     }
 
-    public Conversation(int conversationId, String conversationName, Set<Message> messages, Set<User> users) {
+    public Conversation(int conversationId, String conversationName, List<Message> messages, Set<User> users) {
         this.conversationId = conversationId;
         this.conversationName = conversationName;
         this.messages = messages;
@@ -55,11 +56,11 @@ public class Conversation {
         this.conversationName = conversationName;
     }
 
-    public Set<Message> getMessages() {
+    public List<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Set<Message> messages) {
+    public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
 

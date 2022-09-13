@@ -3,6 +3,8 @@ package spring.app.chitchat.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import spring.app.chitchat.entities.Conversation;
 import spring.app.chitchat.entities.Message;
@@ -29,7 +31,7 @@ public class MessageContoller {
             Conversation conversation = conversationRepository.findById(conversationId).get();
             message.setConversation(conversation);
             Message messageSaved = messageRepository.save(message);
-            Set<Message> currMessages = conversation.getMessages();
+            List<Message> currMessages = conversation.getMessages();
             currMessages.add(messageSaved);
             conversation.setMessages(currMessages);
             conversationRepository.save(conversation);
@@ -44,9 +46,20 @@ public class MessageContoller {
     }
 
     @GetMapping(path="/get/messages/{conversationId}")
-    public Set<Message> getMessagesFromConversation(@PathVariable(value="conversationId") int conversationId) {
+    public List<Message> getMessagesFromConversation(@PathVariable(value="conversationId") int conversationId) {
         Conversation conversation = conversationRepository.findById(conversationId).get();
         System.out.println(conversation.getMessages());
         return conversation.getMessages();
     }
+
+
+    //websocket methods
+    @MessageMapping("/test")
+    @SendTo("/topic/testing")
+    public Message testing(@RequestBody Message message) {
+        String messageContent = message.getMessageContent();
+        System.out.println(messageContent);
+        return message;
+    }
+
 }

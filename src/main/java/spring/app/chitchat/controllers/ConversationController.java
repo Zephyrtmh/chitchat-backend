@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="/conversation")
+@CrossOrigin(origins={"http://localhost:4200"})
 public class ConversationController {
 
     @Autowired
