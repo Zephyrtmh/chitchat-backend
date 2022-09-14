@@ -13,4 +13,7 @@ import java.util.List;
 public interface ConversationRepository extends JpaRepository<Conversation, Integer> {
     @Query(value="SELECT * FROM user_conversation WHERE conversation_id=:conversationId", nativeQuery = true)
     public List<Integer> getUsersByConversationId(@Param(value="conversationId") int conversationId);
+
+    @Query(value="SELECT conversation_id FROM user_conversation WHERE user_id=:userId", nativeQuery = true)
+    public List<Integer> getConversationsByUserId(@Param(value="userId") int userId);
 }

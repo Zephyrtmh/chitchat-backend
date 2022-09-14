@@ -63,7 +63,18 @@ public class ConversationController {
             System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+    }
 
+    @GetMapping(path="/get/all/{userId}")
+    public ResponseEntity<List<Integer>> getConversationsByUserId(@PathVariable(value="userId") int userId) {
+        try {
+            List<Integer> conversationIds = conversationRepository.getConversationsByUserId(userId);
+            return new ResponseEntity<>(conversationIds, HttpStatus.OK);
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }
 

@@ -22,8 +22,10 @@ public class WebSocketController {
     private UserRepository userRepository;
 
     @MessageMapping("/message") // app/message
-    @SendTo("/chatroom/public")
+    @SendTo("/chatroom/")
     public Message receivePublicMessage(@Payload Message message) {
+        int conversationId = message.getConversation().getConversationId();
+        simpMessagingTemplate.convertAndSend("/chatroom/"+conversationId, message);
         return message;
     }
 
